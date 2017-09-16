@@ -5,12 +5,50 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width" />
 <title>Lista de Convidados</title>
-<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
 	rel="stylesheet" />
-<link th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}"
+<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css}"
 	rel="stylesheet" />
 </head>
 <body>
-	<h1>AlgaWorks!</h1>
+	<div class="panel panel-default" style="margin: 10px">
+		<div class="panel-heading">
+			<h1 class="panel-title">Lista de convidados</h1>
+		</div>
+		<div class="panel-body">
+		    <!-- Formulario -->
+		    <!-- Para o Thymeleaf usar este objeto no formulário, adicione o atributo th:object no
+              form -->
+			<form class="form-inline" method="POST" style="margin: 20px 0" th:object="${convidado}" th:action="@{/convidados}">
+				<div class="form-group">
+					<input type="text" class="form-control" 
+						placeholder="Nome" 
+						th:field="*{nome}" />
+					<input type="text" class="form-control" 
+						placeholder="Acompanhantes" 
+						th:field="*{quantidadeAcompanhantes}" />
+						<!-- Repare que usamos a expressão *{} para selecionar a propriedade do objeto
+                         convidado. -->
+					<button type="submit" class="btn btn-primary">Adicionar</button>
+				</div>
+			</form>
+			<!-- Fim formulario -->
+			
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Acompanhantes</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="convidado : ${convidados}">
+						<td th:text="${convidado.nome}"></td>
+						<td th:text="${convidado.quantidadeAcompanhantes}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </body>
 </html>
